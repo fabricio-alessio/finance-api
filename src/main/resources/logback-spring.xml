@@ -1,0 +1,101 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="logStream" value="AUTO-SIGN"/>
+    <springProperty scope="context" name="applicationName" source="spring.application.name"/>
+
+    <springProfile name="homolog">
+        <property name="environment" value="homolog"/>
+        <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+            <region>us-east-1</region>
+            <logGroup>/aws/containerinsights/homolog-managed/namespace/vianuvem-homolog/apps</logGroup>
+            <logStream>${logStream}</logStream>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter
+                        class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="CLOUDWATCH"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="qa">
+        <property name="environment" value="qa"/>
+        <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+            <region>us-east-1</region>
+            <logGroup>/aws/containerinsights/homolog-managed/namespace/vianuvem-qa/apps</logGroup>
+            <logStream>${logStream}</logStream>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter
+                        class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="CLOUDWATCH"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="sandbox">
+        <property name="environment" value="sandbox"/>
+        <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+            <region>us-east-1</region>
+            <logGroup>/aws/containerinsights/prod-managed/namespace/vianuvem-sandbox/apps</logGroup>
+            <logStream>${logStream}</logStream>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter
+                        class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="CLOUDWATCH"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="staging">
+        <property name="environment" value="staging"/>
+        <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+            <region>us-east-1</region>
+            <logGroup>/aws/containerinsights/prod-managed/namespace/vianuvem-staging/apps</logGroup>
+            <logStream>${logStream}</logStream>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter
+                        class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="CLOUDWATCH"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <property name="environment" value="prod"/>
+        <appender name="CLOUDWATCH" class="com.j256.cloudwatchlogbackappender.CloudWatchAppender">
+            <region>us-east-1</region>
+            <logGroup>/aws/containerinsights/prod-managed/namespace/vianuvem-prod/apps</logGroup>
+            <logStream>${logStream}</logStream>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter
+                        class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
+            </layout>
+        </appender>
+        <root level="DEBUG">
+            <appender-ref ref="CLOUDWATCH"/>
+        </root>
+    </springProfile>
+
+</configuration>
