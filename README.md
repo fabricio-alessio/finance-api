@@ -76,3 +76,16 @@ Para desenvolvimento local, executar o projeto com o Spring profile **local**.
 
 ### Decisões arquiteturais
 #### Arquitetura Hexagonal
+
+### Backlog
+
+* Criar user e user company
+* Criar gráficos por company
+* Criar favoritos numa nova coluna que será selecionável e ordenável
+* Show/hide coluna no report
+* Show/hide condição fora do filtro
+* Eliminação de uma company, inclusão de uma nova company (stock code)
+* Edição de tipo de company GROWING, CYCLIC e DIVIDEND
+* Edição de tipo de company PRIVATE e STATE_OWNED
+* Extração de dados de company e do NuInvest com background job. @Scheduled
+* Report com % de dinheiro por tipos de company, e setor
