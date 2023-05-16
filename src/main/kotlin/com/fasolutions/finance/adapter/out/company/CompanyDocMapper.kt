@@ -51,7 +51,7 @@ class CompanyDocMapper {
 
     private fun backwardPositionHistory(source: CompanyDoc.PositionHistory) =
         CompanyPositionHistory(
-            positions = source.positions.map(this::backwardPosition)
+            positions = source.positions.map(this::backwardPosition).toMutableList()
         )
 
     private fun backwardPosition(source: CompanyDoc.Position) =

@@ -19,14 +19,14 @@ class CompaniesPositionHistoryExtractorService(
         }
     }
 
-    private fun persistCompanyPositionHistory(code: String, positionHistory: CompanyPositionHistory) {
+    private fun persistCompanyPositionHistory(code: String, position: CompanyPositionHistory.Position) {
         val companyFound = companyPersistencePort.findByCode(code)
         companyFound?.let {
-            it.positionHistory = positionHistory
+            it.positionHistory?.changePositionByDate(position)
         }
         val companyToSave = companyFound ?: Company(
             code = code,
-            positionHistory = positionHistory,
+            positionHistory = CompanyPositionHistory(positions = mutableListOf(position)),
             indicators = null,
             evaluations = null
         )

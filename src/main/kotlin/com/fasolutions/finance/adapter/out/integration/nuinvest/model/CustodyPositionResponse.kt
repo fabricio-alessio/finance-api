@@ -12,7 +12,15 @@ data class CustodyPositionResponse(
         val averagePrice: Double,
         val securityType: String,
         val investmentType: InvestmentType
-    )
+    ) {
+        companion object {
+            const val STOCK_TYPE_ID = 7
+        }
+
+        fun isStock(): Boolean {
+            return stockCode != null && investmentType.id == STOCK_TYPE_ID
+        }
+    }
 
     data class InvestmentType(
         val id: Int

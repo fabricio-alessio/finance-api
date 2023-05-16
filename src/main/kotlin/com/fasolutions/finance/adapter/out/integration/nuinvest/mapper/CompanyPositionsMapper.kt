@@ -7,34 +7,21 @@ import com.fasolutions.finance.application.domain.SimpleDate
 
 class CompanyPositionsMapper {
 
-    companion object {
-        const val STOCK_TYPE_ID = 7
-    }
-
     fun map(positionResponse: CustodyPositionResponse): CompaniesPositionHistory {
-        val stockInvestments = positionResponse.investments.filter(this::isStock)
-        val history = mutableMapOf<String, CompanyPositionHistory>()
+        val stockInvestments = positionResponse.investments.filter { it.isStock() }
+        val history = mutableMapOf<String, CompanyPositionHistory.Position>()
         stockInvestments.forEach {
             val code = it.stockCode!!
-            val positionHistory = mapInvestment(it)
-            history[code] = positionHistory
+            history[code] = mapInvestment(it)
         }
         return CompaniesPositionHistory(history.toMap())
     }
 
     private fun mapInvestment(investment: CustodyPositionResponse.Investment) =
-        CompanyPositionHistory(
-            positions = mutableListOf(
-                CompanyPositionHistory.Position(
-                    currentPrice = investment.lastPrice,
-                    totalQuantity = investment.totalQuantity.toInt(),
-                    averagePrice = investment.averagePrice,
-                    date = SimpleDate.now()
-                )
-            )
+        CompanyPositionHistory.Position(
+            currentPrice = investment.lastPrice,
+            totalQuantity = investment.totalQuantity.toInt(),
+            averagePrice = investment.averagePrice,
+            date = SimpleDate.now()
         )
-
-    private fun isStock(investment: CustodyPositionResponse.Investment): Boolean {
-        return investment.stockCode != null && investment.investmentType.id == STOCK_TYPE_ID
-    }
 }
