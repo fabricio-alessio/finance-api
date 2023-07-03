@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class CompanyBasicsExtractor(
     private val client: BasicsClient = BasicsClient(),
     private val mapper: BasicsMapper = BasicsMapper()
-) : CompanyBasicsExtractPort{
+) : CompanyBasicsExtractPort {
     override fun extractByCode(code: String): CompanyBasics {
         val response = client.call(code)
         return mapper.map(response)

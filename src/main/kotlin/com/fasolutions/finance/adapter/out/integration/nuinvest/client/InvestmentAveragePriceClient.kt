@@ -14,7 +14,7 @@ class InvestmentAveragePriceClient {
         .hostnameVerifier(HostnameVerifier { _, _ -> true }) // To avoid error -> Hostname www.nuinvest.com.br not verified (no certificates)
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
-        .build();
+        .build()
 
     private val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 

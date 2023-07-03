@@ -6,7 +6,8 @@ data class IndicatorCodesExternal(
     companion object {
         fun example() =
             IndicatorCodesExternal(
-                listOf("BMGB4",
+                listOf(
+                    "BMGB4",
                     "CSMG3",
                     "VIVT3",
                     "GUAR3",

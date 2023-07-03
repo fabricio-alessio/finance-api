@@ -15,7 +15,7 @@ data class CompanyPriceHistory(
     fun averageOfMonthsAgo(count: Long): Double {
         var mydate = LocalDate.now()
         mydate = mydate.minusMonths(count)
-        val countMonthsAgo = Date.from(mydate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        val countMonthsAgo = Date.from(mydate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
 
         val listOfCountMonthsAgo = prices.filter {
             it.date > countMonthsAgo
@@ -27,7 +27,7 @@ data class CompanyPriceHistory(
 
     fun nearAtCountDaysAgo(count: Long): Double {
         var value = atCountDaysAgo(count)
-        var c = count;
+        var c = count
         while (value == 0.0 && c > 0) {
             c--
             value = atCountDaysAgo(c)
@@ -43,7 +43,7 @@ data class CompanyPriceHistory(
     private fun dateCountDaysAgo(count: Long): Date {
         val now = LocalDate.now()
         val countDaysAgo = now.minusDays(count)
-        return Date.from(countDaysAgo.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        return Date.from(countDaysAgo.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
     }
 
     private fun priceAtDate(date: Date): Double {

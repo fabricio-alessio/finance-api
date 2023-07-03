@@ -13,8 +13,6 @@ data class CompanyDoc(
     @Id
     val code: String,
     val indicators: Indicators?,
-    val evaluations: Evaluations?,
-    val positionHistory: PositionHistory?,
     @CreatedDate
     val createdAt: LocalDateTime,
 ) {

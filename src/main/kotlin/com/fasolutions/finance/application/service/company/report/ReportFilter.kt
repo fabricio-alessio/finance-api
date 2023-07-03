@@ -24,15 +24,15 @@ class ReportFilter(
 
     private fun calculate(report: CompanyReport): Boolean {
 
-        if (!calculateValue(report.dividendLastFiveYears)) return false;
-        if (!calculateValue(report.observedPayout)) return false;
-        if (!calculateValue(report.price)) return false;
-        if (!calculateValue(report.roic) && report.roic.value != 0.0) return false;
-        if (!calculateValue(report.fairPricePercent)) return false;
-        if (!calculateValue(report.fairAveragePricePercent)) return false;
-        if (!calculateValue(report.dividendLastFiveYears)) return false;
-        if (!calculateValue(report.dividendLastTwoYears)) return false;
-        if (!calculateValue(report.dividendNextTreeYears)) return false;
+        if (!calculateValue(report.dividendLastFiveYears)) return false
+        if (!calculateValue(report.observedPayout)) return false
+        if (!calculateValue(report.price)) return false
+        if (!calculateValue(report.roic) && report.roic.value != 0.0) return false
+        if (!calculateValue(report.fairPricePercent)) return false
+        if (!calculateValue(report.fairAveragePricePercent)) return false
+        if (!calculateValue(report.dividendLastFiveYears)) return false
+        if (!calculateValue(report.dividendLastTwoYears)) return false
+        if (!calculateValue(report.dividendNextTreeYears)) return false
 
         return true
     }

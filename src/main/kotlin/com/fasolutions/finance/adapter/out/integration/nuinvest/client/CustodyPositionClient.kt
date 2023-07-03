@@ -8,14 +8,13 @@ import okhttp3.Request
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLSession
 
 class CustodyPositionClient {
     private val client = OkHttpClient.Builder()
         .hostnameVerifier(HostnameVerifier { _, _ -> true }) // To avoid error -> Hostname www.nuinvest.com.br not verified (no certificates)
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
-        .build();
+        .build()
 
     private val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 

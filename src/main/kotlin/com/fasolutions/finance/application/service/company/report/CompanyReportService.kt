@@ -5,18 +5,21 @@ import com.fasolutions.finance.application.domain.Field
 import com.fasolutions.finance.application.domain.condition.Condition
 import com.fasolutions.finance.application.port.`in`.company.CompanyReportUseCase
 import com.fasolutions.finance.application.port.out.company.CompanyPersistencePort
+import com.fasolutions.finance.application.port.out.company.UserCompanyPersistencePort
 import com.fasolutions.finance.application.port.out.condition.ConditionPersistencePort
 import org.springframework.stereotype.Service
 
 @Service
 class CompanyReportService(
     private val companyPersistencePort: CompanyPersistencePort,
+    private val userCompanyPersistencePort: UserCompanyPersistencePort,
     private val conditionPersistencePort: ConditionPersistencePort
 ) : CompanyReportUseCase {
-    override fun generateReport(): List<CompanyReport> {
+    override fun generateReport(userId: Int): List<CompanyReport> {
         val companies = companyPersistencePort.findAll()
+        val userCompanies = userCompanyPersistencePort.findAllByUserId(userId)
         val reportCalculator = ReportCalculator()
-        val companyReports = reportCalculator.calculate(companies)
+        val companyReports = reportCalculator.calculate(companies, userCompanies)
         val reportFilter = ReportFilter(getConditions())
         return reportFilter.calculateFiltered(companyReports)
     }

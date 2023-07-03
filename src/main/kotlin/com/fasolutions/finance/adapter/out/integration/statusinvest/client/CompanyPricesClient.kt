@@ -15,11 +15,11 @@ class CompanyPricesClient {
     private val client = OkHttpClient.Builder()
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
-        .build();
+        .build()
 
     private val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-    enum class Type(val code: String){
+    enum class Type(val code: String) {
         DAY("-1"), FIVE_DAYS("0"), THIRTY_DAYS("1"), SIX_MONTHS("2"), ONE_YEAR("3"), FIVE_YEARS("4")
     }
 

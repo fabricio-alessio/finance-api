@@ -31,7 +31,9 @@ class TickerReportExternalMapper {
             val5Days = forwardLimitValue(source.valorization5Days),
             roic = forwardLimitValue(source.roic),
             percTotal = forwardLimitValue(source.totalPercent),
-            filtered = source.filtered
+            filtered = source.filtered,
+            pl = forwardLimitValue(source.pl),
+            pvp = forwardLimitValue(source.pvp)
         )
 
     private fun forwardLimitValue(source: CompanyReport.LimitValue) =

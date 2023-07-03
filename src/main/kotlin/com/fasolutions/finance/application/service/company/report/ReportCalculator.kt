@@ -4,13 +4,17 @@ import com.fasolutions.finance.application.domain.Company
 import com.fasolutions.finance.application.domain.CompanyEvaluations
 import com.fasolutions.finance.application.domain.CompanyReport
 import com.fasolutions.finance.application.domain.CompanyReport.LimitValue
-import com.fasolutions.finance.application.domain.IndicatorCode
 import com.fasolutions.finance.application.domain.Field
+import com.fasolutions.finance.application.domain.IndicatorCode
+import com.fasolutions.finance.application.domain.UserCompany
 
 class ReportCalculator {
 
-    fun calculate(companies: List<Company>): List<CompanyReport> {
-        val reports = companies.mapNotNull(this::calculateForCompany)
+    fun calculate(companies: List<Company>, userCompanies: List<UserCompany>): List<CompanyReport> {
+        val reports = companies.mapNotNull { company ->
+            val userCompany = userCompanies.firstOrNull { it.code == company.code }
+            calculateForCompany(company, userCompany)
+        }
         val sumTotals = reports.sumOf { it.totalPrice ?: 0.0 }
         return reports.map {
             it.copy(
@@ -19,16 +23,16 @@ class ReportCalculator {
         }
     }
 
-    private fun calculateForCompany(company: Company): CompanyReport? {
+    private fun calculateForCompany(company: Company, userCompany: UserCompany?): CompanyReport? {
         val basics = company.indicators?.basics ?: throw IllegalArgumentException("Must have basics")
         val provents = company.indicators?.provents ?: throw IllegalArgumentException("Must have provents")
         val price = company.indicators?.price ?: throw IllegalArgumentException("Must have price")
         val indicatorHistory = company.indicators?.indicatorHistory ?: throw IllegalArgumentException("Must have indicatorHistory")
-        val position = company.positionHistory?.positions?.lastOrNull()
+        val position = userCompany?.positionHistory?.positions?.lastOrNull()
         val prices = company.indicators?.priceHistory ?: throw IllegalArgumentException("Must have priceHistory")
         val price30DaysAgo = prices.nearAtCountDaysAgo(30)
         val price5DaysAgo = prices.nearAtCountDaysAgo(5)
-        val evaluations = company.evaluations ?: CompanyEvaluations(
+        val evaluations = userCompany?.evaluations ?: CompanyEvaluations(
             observedPayout = 0.0,
             proventPredictions = emptyList()
         )
@@ -59,7 +63,9 @@ class ReportCalculator {
                 valorization5Days = (price - price5DaysAgo) / price5DaysAgo * 100,
                 observedPayout = LimitValue(field = Field.OBSERVED_PAYOUT, value = evaluations.observedPayout),
                 dividendNextTreeYears = LimitValue(field = Field.DIVIDEND_NEXT_TREE_YEARS, value = evaluations.averageNextProvents() / price * 100),
-                filtered = false
+                filtered = false,
+                pl = indicatorHistory.valueByCode(IndicatorCode.PL),
+                pvp = indicatorHistory.valueByCode(IndicatorCode.PVP)
             )
         } else {
             return null

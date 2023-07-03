@@ -22,7 +22,9 @@ data class TickersReportExternal(
         val val5Days: LimitValue,
         val roic: LimitValue,
         val percTotal: LimitValue,
-        val filtered: Boolean
+        val filtered: Boolean,
+        val pl: LimitValue,
+        val pvp: LimitValue
     )
 
     data class LimitValue(

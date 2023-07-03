@@ -9,7 +9,7 @@ class BasicsClient {
     private val client = OkHttpClient.Builder()
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
-        .build();
+        .build()
 
     fun call(code: String): List<String> {
 
@@ -18,9 +18,9 @@ class BasicsClient {
             .url(url)
             .addHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36")
             .get()
-            .build();
+            .build()
 
-        val response = client.newCall(request).execute();
+        val response = client.newCall(request).execute()
 
         if (response.code == 200) {
             val body = response.body!!.string()

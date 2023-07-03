@@ -7,6 +7,7 @@ import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -25,8 +26,11 @@ class PositionsControllerV1(
     @PostMapping(
         value = [""]
     )
-    fun extract(@RequestBody positionsRequest: PositionsRequest) {
-        log.info { "Extract positions with $positionsRequest" }
-        extractPositionHistoryUseCase.extractWithBearer(positionsRequest.bearer)
+    fun extract(
+        @RequestBody positionsRequest: PositionsRequest,
+        @RequestHeader userId: Int
+    ) {
+        log.info { "Extract positions for userId $userId with $positionsRequest" }
+        extractPositionHistoryUseCase.extractWithBearer(userId, positionsRequest.bearer)
     }
 }

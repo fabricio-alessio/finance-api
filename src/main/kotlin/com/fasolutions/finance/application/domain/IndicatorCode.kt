@@ -10,5 +10,7 @@ enum class IndicatorCode(
     DIV_EBITDA("Dívida líquida / EBITDA", "Indica quanto tempo seria necessário para pagar a dívida líquida da empresa considerando o EBITDA atual. Indica também o grau de endividamento da companhia."),
     MARG_EBITDA("EBITDA / Receita líquida", "É o percentual da divisão entre o EBITDA (Earnings before interest, taxes, depreciation and amortization) e a receita líquida de uma companhia. Muito útil para se comparar a lucratividade operacional da empresa."),
     ROE("Lucro líquido / Patrimônio líquido", "Mede a capacidade de agregar valor de uma empresa a partir de seus próprios recursos e do dinheiro de investidores."),
-    ROIC("(EBIT - Impostos) / (Patrimônio líquido + Endividamento)", "Mede a rentabilidade de dinheiro que uma empresa é capaz de gerar em razão de todo o capital investido, incluindo os aportes por meio de dívidas.")
+    ROIC("(EBIT - Impostos) / (Patrimônio líquido + Endividamento)", "Mede a rentabilidade de dinheiro que uma empresa é capaz de gerar em razão de todo o capital investido, incluindo os aportes por meio de dívidas."),
+    PL("Preço da Ação / Lucro por Ação", "O P/L, ou Preço/Lucro, é um índice usado para avaliar se o preço das ações de uma empresa está caro ou barato."),
+    PVP("Preço de Mercado / Valor Patrimonial", "O P/VP, ou Preço sobre Valor Patrimonial, é um indicador que informa se o valor de uma ação está relativamente cara ou barata.")
 }

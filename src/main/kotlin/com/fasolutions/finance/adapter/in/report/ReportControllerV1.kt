@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,8 +24,8 @@ class ReportControllerV1(
     @GetMapping(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun allTickers(): TickersReportExternal {
-        log.info { "Report tickers" }
-        return companyReportUseCase.generateReport().let(tickerReportExternalMapper::forward)
+    fun allTickers(@RequestHeader userId: Int): TickersReportExternal {
+        log.info { "Report tickers for userId $userId" }
+        return companyReportUseCase.generateReport(userId).let(tickerReportExternalMapper::forward)
     }
 }

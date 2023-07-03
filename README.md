@@ -70,6 +70,7 @@ $ ktlint -F
 
 ### Rodando o projeto
 Para desenvolvimento local, executar o projeto com o Spring profile **local**.
+Obs.: Precisa de uma ambiente com docker rodando
 
 ### Acessando o projeto
 [http://localhost:8080](http://localhost:8080)
@@ -80,6 +81,7 @@ Para desenvolvimento local, executar o projeto com o Spring profile **local**.
 ### Backlog
 
 * Criar user e user company
+* Fazer conditions por userId
 * Criar gráficos por company
 * Criar favoritos numa nova coluna que será selecionável e ordenável
 * Show/hide coluna no report

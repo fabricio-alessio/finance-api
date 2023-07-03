@@ -3,18 +3,26 @@ package com.fasolutions.finance.adapter.`in`.error
 import com.fasolutions.finance.application.domain.NotFoundException
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.MissingRequestHeaderException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-internal class RestExceptionHandler{
+internal class RestExceptionHandler {
 
     private val log = KotlinLogging.logger { }
 
     @ExceptionHandler(IllegalArgumentException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleIllegalArgumentException(ex: IllegalArgumentException) =
+        ErrorsExternal("error.mapping", ex.message).also {
+            log.error(ex) { ex.message }
+        }
+
+    @ExceptionHandler(MissingRequestHeaderException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleMissingRequestHeaderException(ex: MissingRequestHeaderException) =
         ErrorsExternal("error.mapping", ex.message).also {
             log.error(ex) { ex.message }
         }

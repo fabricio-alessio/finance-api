@@ -22,8 +22,6 @@ extra["equalsverifierVersion"] = "3.7.2"
 extra["cloudwatchLogbackAppenderVersion"] = "2.1"
 extra["logbackContribJacksonVersion"] = "0.1.5"
 extra["okhttpVersion"] = "4.10.0"
-
-
 extra["agentExtractionRoot"] = "$buildDir/jib-agents"
 
 plugins {

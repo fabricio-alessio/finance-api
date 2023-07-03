@@ -19,9 +19,7 @@ class CompanyDocMapper {
     fun backward(source: CompanyDoc) =
         Company(
             code = source.code,
-            indicators = source.indicators?.let(this::backwardIndicators),
-            evaluations = source.evaluations?.let(this::backwardEvaluations),
-            positionHistory = source.positionHistory?.let(this::backwardPositionHistory)
+            indicators = source.indicators?.let(this::backwardIndicators)
         )
 
     private fun backwardIndicators(source: CompanyDoc.Indicators) =
@@ -105,8 +103,6 @@ class CompanyDocMapper {
         CompanyDoc(
             code = source.code,
             indicators = source.indicators?.let(this::forwardIndicators),
-            evaluations = source.evaluations?.let(this::forwardEvaluations),
-            positionHistory = source.positionHistory?.let(this::forwardPositionHistory),
             createdAt = LocalDateTime.now()
         )
 

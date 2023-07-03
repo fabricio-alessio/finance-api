@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -32,9 +33,19 @@ class CompanyControllerV1(
         value = ["/{code}/evaluations"],
         consumes = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun editEvaluations(@PathVariable code: String, @RequestBody companyEvaluationsExternal: CompanyEvaluationsExternal) {
+    fun editEvaluations(
+        @PathVariable code: String,
+        @RequestBody companyEvaluationsExternal: CompanyEvaluationsExternal,
+        @RequestHeader userId: Int
+    ) {
         companyEvaluationsExternalMapper.backward(companyEvaluationsExternal).let {
-            editCompanyEvaluationsUseCase.editEvaluations(EditCompanyEvaluationsCommand(code, it))
+            editCompanyEvaluationsUseCase.editEvaluations(
+                EditCompanyEvaluationsCommand(
+                    code = code,
+                    userId = userId,
+                    companyEvaluations = it
+                )
+            )
         }
     }
 
@@ -43,8 +54,11 @@ class CompanyControllerV1(
         value = ["/{code}/evaluations"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun getByCode(@PathVariable code: String): CompanyEvaluationsExternal =
-        findCompanyEvaluationsByCodeUseCase.findEvaluationsByCode(code).let {
+    fun getEvaluationsByCode(
+        @PathVariable code: String,
+        @RequestHeader userId: Int
+    ): CompanyEvaluationsExternal =
+        findCompanyEvaluationsByCodeUseCase.findEvaluationsByUserIdCode(userId, code).let {
             companyEvaluationsExternalMapper.forward(it)
         }
 

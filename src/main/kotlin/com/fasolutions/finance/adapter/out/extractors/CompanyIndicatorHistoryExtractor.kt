@@ -10,9 +10,14 @@ import org.springframework.stereotype.Component
 class CompanyIndicatorHistoryExtractor(
     private val indicatorClient: CompanyIndicatorHistoryClient = CompanyIndicatorHistoryClient(),
     private val indicatorMapper: CompanyIndicatorHistoryMapper = CompanyIndicatorHistoryMapper()
-): CompanyIndicatorHistoryExtractPort {
-    override fun extractByCode(code: String): CompanyIndicatorHistory {
-        val indicatorResponse = indicatorClient.callForCompany(code)
-        return indicatorMapper.map(indicatorResponse)
+) : CompanyIndicatorHistoryExtractPort {
+    override fun extractByCode(code: String): CompanyIndicatorHistory? {
+        val response = indicatorClient.callForCompany(code)
+        return if (response.success) {
+            response.data?.let(indicatorMapper::map)
+                ?: throw RuntimeException("Must have data when extract indicator from code $code and success is true")
+        } else {
+            null
+        }
     }
 }

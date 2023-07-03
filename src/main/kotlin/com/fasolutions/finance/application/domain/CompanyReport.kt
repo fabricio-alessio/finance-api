@@ -26,7 +26,9 @@ data class CompanyReport(
     val valorization5Days: Double,
     val observedPayout: LimitValue,
     val dividendNextTreeYears: LimitValue,
-    val filtered: Boolean
+    val filtered: Boolean,
+    val pl: Double,
+    val pvp: Double
 ) {
     data class LimitValue(
         val field: Field,

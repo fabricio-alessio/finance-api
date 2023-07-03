@@ -2,7 +2,7 @@ package com.fasolutions.finance.adapter.out.integration.statusinvest.model
 
 data class CompanyIndicatorHistoryResponse(
     val success: Boolean,
-    val data: Map<String, List<Indicator>>
+    val data: Map<String, List<Indicator>>?
 ) {
     data class Indicator(
         val key: String,

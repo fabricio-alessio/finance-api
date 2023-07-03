@@ -19,7 +19,7 @@ class BasicsMapper {
         var type = ""
         var enterprise = ""
         var lineNumber = 0
-        val maxLineNumber = lines.size-1
+        val maxLineNumber = lines.size - 1
         while (lineNumber < maxLineNumber) {
             val line = lines[lineNumber]
             if (line.contains(SECTOR_MATCHER)) {
@@ -56,7 +56,7 @@ class BasicsMapper {
     private fun getData(field: String, line: String): String {
         val indexOfField = line.indexOf(field)
         val subLineWithData = line.subSequence(indexOfField, line.length)
-        val indexOfStartData = subLineWithData.indexOf('>')+1
+        val indexOfStartData = subLineWithData.indexOf('>') + 1
         val indexOfEndData = subLineWithData.indexOf('<')
         return subLineWithData.subSequence(indexOfStartData, indexOfEndData).toString()
     }

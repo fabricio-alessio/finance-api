@@ -14,13 +14,14 @@ class CompanyIndicatorHistoryMapper {
             "dividaliquida_ebitda" to IndicatorCode.DIV_EBITDA,
             "margemebitda" to IndicatorCode.MARG_EBITDA,
             "roe" to IndicatorCode.ROE,
-            "roic" to IndicatorCode.ROIC
+            "roic" to IndicatorCode.ROIC,
+            "p_l" to IndicatorCode.PL,
+            "p_vp" to IndicatorCode.PVP
         )
     }
 
-    fun map(response: CompanyIndicatorHistoryResponse): CompanyIndicatorHistory {
-        val companyCode = response.data.keys.first()
-        val indicators = response.data.values.first()
+    fun map(responseData: Map<String, List<CompanyIndicatorHistoryResponse.Indicator>>): CompanyIndicatorHistory {
+        val indicators = responseData.values.first()
         return CompanyIndicatorHistory(
             indicators = indicators.filter(this::knownIndicator).map(this::mapIndicator)
         )
