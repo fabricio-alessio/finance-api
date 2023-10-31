@@ -7,6 +7,8 @@ data class IndicatorCodesExternal(
         fun example() =
             IndicatorCodesExternal(
                 listOf(
+                    "BBSE3",
+                    "CXSE3",
                     "BMGB4",
                     "CSMG3",
                     "VIVT3",
