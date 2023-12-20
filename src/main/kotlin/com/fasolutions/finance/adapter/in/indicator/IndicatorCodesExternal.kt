@@ -84,7 +84,6 @@ data class IndicatorCodesExternal(
                     "SLCE3",
                     "DEXP4",
                     "DEXP3",
-                    "WIZS3",
                     "GOAU3",
                     "GOAU4",
                     "LEVE3",
