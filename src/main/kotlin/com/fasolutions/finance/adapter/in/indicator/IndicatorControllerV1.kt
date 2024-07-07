@@ -1,6 +1,7 @@
 package com.fasolutions.finance.adapter.`in`.indicator
 
 import com.fasolutions.finance.application.port.`in`.company.ExtractCompanyIndicatorsUseCase
+import com.fasolutions.finance.application.port.out.indicator.GetIndicatorCodesPort
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/indicators")
 @Tag(name = "Indicators")
 class IndicatorControllerV1(
-    private val extractIndicatorsUseCase: ExtractCompanyIndicatorsUseCase
+    private val extractIndicatorsUseCase: ExtractCompanyIndicatorsUseCase,
+    private val getIndicatorCodesPort: GetIndicatorCodesPort
 ) {
 
     private val log = KotlinLogging.logger { }
@@ -37,5 +39,5 @@ class IndicatorControllerV1(
         value = ["/codes"],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun getAllCodes() = IndicatorCodesExternal.example()
+    fun getAllCodes() = IndicatorCodesExternal(getIndicatorCodesPort.findAll())
 }
